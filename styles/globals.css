@@ -2,3 +2,22 @@
 @tailwind components;
 @tailwind utilities;
 
+
+
+.ghost-1 {
+    animation: float 5s ease-out infinite;
+  }
+
+.ghost-2 {
+animation: float 5.5s ease-out infinite;
+}
+
+.ghost-3 {
+animation: float 7.5s ease-out infinite;
+}
+  
+  @keyframes float {
+    50% {
+       transform: translate(0, 20px);
+    }
+  }
