@@ -18,14 +18,14 @@ import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
 import { Footer, HeadTD, Navbar } from '../../../components';
 
-const CategoriID = ({ dataCategories, lenghtAllData }) => {
+const CategoriID = ({ dataCategories, lenghtAllData, Cid }) => {
   // const [page, setPage] = useState(0);
   const [size, setSize] = useState(10);
   const [booku, setBooku] = useState(dataCategories);
+  const router = useRouter();
 
   // const [isLoaded, setIsLoaded] = useState(false);
 
-  const router = useRouter();
   // const [id, setBook ] = router.query;
   // const pagesizeOhnchange = async () => {
   //   try {
@@ -91,7 +91,7 @@ const CategoriID = ({ dataCategories, lenghtAllData }) => {
               h={[250, null, 400]}
               borderRadius="md"
               className=" flex flex-col gap-2 items-center hover:scale-105 hover:shadow-lg  transition cursor-pointer"
-              onClick={() => console.log(`/${router.query.id}`)}
+              onClick={() => console.log(`/${Cid}`)}
             >
               <Image src={i.cover_url} boxSize="75%" />
               <div className=" w-full text-start px-6">
@@ -107,17 +107,16 @@ const CategoriID = ({ dataCategories, lenghtAllData }) => {
           <div className="flex justify-center gap-2 items-center w-40">
             <Text>Book&apos;s</Text>
             <NumberInput
-              defaultValue={10}
+              placeholder="10"
               min={10}
               max={20}
               value={size}
               onChange={(e) => {
                 setSize(e);
-                // console.log(`/categori/${id}&0&${e}`);
-                // router.push({
-                //   pathname: `/categori/${id}&0&${e}`,
-                //   query: { name: router.query.name },
-                // });
+                router.push({
+                  pathname: `/categori/${Cid}&0&${e}`,
+                  query: { name: router.query.name },
+                });
               }}
             >
               <NumberInputField />
@@ -150,5 +149,5 @@ export async function getServerSideProps(context) {
   const AllData = await categoriAll.json();
   const lenghtAllData = AllData.length;
   // Pass data to the page via props
-  return { props: { dataCategories, lenghtAllData } };
+  return { props: { dataCategories, lenghtAllData, Cid } };
 }
