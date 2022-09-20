@@ -8,6 +8,7 @@ import {
 } from '@chakra-ui/react';
 import { MoonIcon, SunIcon } from '@chakra-ui/icons';
 import Image from 'next/image';
+import { useRouter } from 'next/router';
 
 // const NavLink = (children) => (
 //   <Link
@@ -25,42 +26,47 @@ import Image from 'next/image';
 // );
 
 export default function Navbar() {
+  const router = useRouter();
   const { colorMode, toggleColorMode } = useColorMode();
-  // const { isOpen, onOpen, onClose } = useDisclosure();
   return (
-    <Box bg={useColorModeValue('gray.100', 'gray.900')} px={4}>
-      <Flex
-        h={20}
-        alignItems="center"
-        margin="auto"
-        justifyContent="space-between"
-        maxWidth={1200}
-      >
-        <Image
-          src={`/logo-bg-${colorMode === 'light' ? 'dark' : 'no'}.webp`}
-          width={120}
-          height={53}
-        />
+    <header>
+      <Box bg={useColorModeValue('gray.100', 'gray.900')} px={4}>
+        <Flex
+          h={20}
+          alignItems="center"
+          margin="auto"
+          justifyContent="space-between"
+          maxWidth={1200}
+        >
+          <Image
+            src={`/logo-bg-${colorMode === 'light' ? 'dark' : 'no'}.webp`}
+            width={120}
+            height={53}
+            onClick={() => router.push('/')}
+            className="cursor-pointer"
+          />
 
-        <Flex alignItems="center">
-          <Stack direction="row" spacing={7}>
-            <Button
-              colorScheme="gray"
-              variant="ghost"
-              className="hover:translate-x-1 transition"
-            >
-              Baca Buku
-            </Button>
-            <Button onClick={toggleColorMode}>
-              {colorMode === 'light' ? (
-                <MoonIcon />
-              ) : (
-                <SunIcon color="yellow" />
-              )}
-            </Button>
-          </Stack>
+          <Flex alignItems="center">
+            <Stack direction="row" spacing={7}>
+              <Button
+                colorScheme="gray"
+                variant="ghost"
+                className="hover:scale-105 transition"
+                onClick={() => router.push('/categori')}
+              >
+                Baca Booku
+              </Button>
+              <Button onClick={toggleColorMode}>
+                {colorMode === 'light' ? (
+                  <MoonIcon />
+                ) : (
+                  <SunIcon color="yellow" />
+                )}
+              </Button>
+            </Stack>
+          </Flex>
         </Flex>
-      </Flex>
-    </Box>
+      </Box>
+    </header>
   );
 }

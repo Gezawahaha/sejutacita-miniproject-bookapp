@@ -16,7 +16,7 @@ const HeadTD = ({ newTitle, newDesc }) => (
           : `This Official Sejuta Cita Book's App. You can read anything book's just visit this website`
       }
     />
-    <link rel="icon" href="/favicon.ico" />
+    <link rel="icon" href="/favicon.webp" />
   </Head>
 );
 

@@ -7,9 +7,9 @@ const Hero = () => (
     <div className="flex-none">
       <HeroBookLogo />
     </div>
-    <div className="flex flex-col justify-start m-auto px-8">
+    <div className="flex flex-col justify-start m-auto px-8 gap-2">
       <Heading as="h1">
-        Sudah Kah Membaca <br /> Hari ini ?
+        Sudah Kah Membaca <br /> Buku Hari ini ?
       </Heading>
       <Text as="i">
         &quot;Buku adalah pembawa peradaban. Tanpa buku, sejarah itu sunyi,

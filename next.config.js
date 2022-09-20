@@ -2,6 +2,10 @@
 const nextConfig = {
   reactStrictMode: true,
   swcMinify: true,
-}
+  images: {
+    domains: ['sejutacita.id'],
+  },
+  
+};
 
-module.exports = nextConfig
+module.exports = nextConfig;

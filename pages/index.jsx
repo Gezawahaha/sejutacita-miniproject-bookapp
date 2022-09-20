@@ -1,115 +1,91 @@
-import { Heading } from '@chakra-ui/layout';
+import { Heading, Text } from '@chakra-ui/layout';
 import Image from 'next/image';
-import { HeadTD, Hero, Navbar } from '../components';
-import styles from '../styles/Home.module.css';
+import { CategoriCard, Footer, HeadTD, Hero, Navbar } from '../components';
 
-export default function Home() {
+export default function Home({ dataCategori }) {
   return (
     <>
       <HeadTD />
       <Navbar />
-      <main className="max-w-[1100px] flex justify-center items-center m-auto">
-        <section className="w-full">
+      <main className="max-w-[1100px] flex justify-center items-center mx-auto flex-col">
+        <section className="w-full my-10">
           <Hero />
         </section>
-      </main>
-      <div className={styles.container}>
-        <main className={styles.main}>
-          <Heading>Hello, Chakra UI & Tailwindcss</Heading>
-
-          <section>
-            <p>
-              Lorem ipsum, dolor sit amet consectetur adipisicing elit. Odio
-              repellendus esse debitis unde exercitationem fuga minima quis quod
-              facilis illum nam, atque deserunt maiores accusantium totam magni
-              laborum ab consectetur ratione rerum optio quam blanditiis.
-              Consectetur accusantium aliquid blanditiis ipsa ad ab eos ducimus
-              eius commodi sapiente? Maxime quis commodi eligendi sit earum amet
-              omnis enim asperiores dolorem, facilis excepturi atque nobis
-              explicabo a ad adipisci, at maiores vero assumenda placeat minima
-              cum fuga magnam expedita! Necessitatibus recusandae excepturi
-              facilis modi quaerat, ullam molestias qui provident, porro quasi
-              non, ratione reprehenderit a incidunt similique dolores? Voluptas
-              perspiciatis consectetur perferendis sint?
-            </p>
-
-            <p>
-              Lorem ipsum, dolor sit amet consectetur adipisicing elit. Odio
-              repellendus esse debitis unde exercitationem fuga minima quis quod
-              facilis illum nam, atque deserunt maiores accusantium totam magni
-              laborum ab consectetur ratione rerum optio quam blanditiis.
-              Consectetur accusantium aliquid blanditiis ipsa ad ab eos ducimus
-              eius commodi sapiente? Maxime quis commodi eligendi sit earum amet
-              omnis enim asperiores dolorem, facilis excepturi atque nobis
-              explicabo a ad adipisci, at maiores vero assumenda placeat minima
-              cum fuga magnam expedita! Necessitatibus recusandae excepturi
-              facilis modi quaerat, ullam molestias qui provident, porro quasi
-              non, ratione reprehenderit a incidunt similique dolores? Voluptas
-              perspiciatis consectetur perferendis sint?
-            </p>
-            <p>
-              Lorem ipsum, dolor sit amet consectetur adipisicing elit. Odio
-              repellendus esse debitis unde exercitationem fuga minima quis quod
-              facilis illum nam, atque deserunt maiores accusantium totam magni
-              laborum ab consectetur ratione rerum optio quam blanditiis.
-              Consectetur accusantium aliquid blanditiis ipsa ad ab eos ducimus
-              eius commodi sapiente? Maxime quis commodi eligendi sit earum amet
-              omnis enim asperiores dolorem, facilis excepturi atque nobis
-              explicabo a ad adipisci, at maiores vero assumenda placeat minima
-              cum fuga magnam expedita! Necessitatibus recusandae excepturi
-              facilis modi quaerat, ullam molestias qui provident, porro quasi
-              non, ratione reprehenderit a incidunt similique dolores? Voluptas
-              perspiciatis consectetur perferendis sint?
-            </p>
-            <p>
-              Lorem ipsum, dolor sit amet consectetur adipisicing elit. Odio
-              repellendus esse debitis unde exercitationem fuga minima quis quod
-              facilis illum nam, atque deserunt maiores accusantium totam magni
-              laborum ab consectetur ratione rerum optio quam blanditiis.
-              Consectetur accusantium aliquid blanditiis ipsa ad ab eos ducimus
-              eius commodi sapiente? Maxime quis commodi eligendi sit earum amet
-              omnis enim asperiores dolorem, facilis excepturi atque nobis
-              explicabo a ad adipisci, at maiores vero assumenda placeat minima
-              cum fuga magnam expedita! Necessitatibus recusandae excepturi
-              facilis modi quaerat, ullam molestias qui provident, porro quasi
-              non, ratione reprehenderit a incidunt similique dolores? Voluptas
-              perspiciatis consectetur perferendis sint?
-            </p>
-            <p>
-              Lorem ipsum, dolor sit amet consectetur adipisicing elit. Odio
-              repellendus esse debitis unde exercitationem fuga minima quis quod
-              facilis illum nam, atque deserunt maiores accusantium totam magni
-              laborum ab consectetur ratione rerum optio quam blanditiis.
-              Consectetur accusantium aliquid blanditiis ipsa ad ab eos ducimus
-              eius commodi sapiente? Maxime quis commodi eligendi sit earum amet
-              omnis enim asperiores dolorem, facilis excepturi atque nobis
-              explicabo a ad adipisci, at maiores vero assumenda placeat minima
-              cum fuga magnam expedita! Necessitatibus recusandae excepturi
-              facilis modi quaerat, ullam molestias qui provident, porro quasi
-              non, ratione reprehenderit a incidunt similique dolores? Voluptas
-              perspiciatis consectetur perferendis sint?
-            </p>
-          </section>
-        </main>
-
-        <footer className={styles.footer}>
-          <a
-            href="https://vercel.com?utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Made with by{' '}
-            <span className={styles.logo}>
-              <Image
-                src="/vercel.svg"
-                alt="Vercel Logo"
-                width={72}
-                height={16}
+        <section className="flex flex-col-reverse md:flex-row gap-4 px-8 my-20 justify-between w-full">
+          <div className="flex flex-col gap-2">
+            <Heading>
+              Beragam Category Buku <br /> Hanya Disini !
+            </Heading>
+            <Text as="i" className="flex-auto">
+              &quot;Makin kita banyak membaca, makin kita banyak berpikir makin
+              kita banyak belajar, makin kita sadar bahwa kita tak mengetahui
+              apa pun.&quot; -<Text as="b">Voltaire</Text>
+            </Text>
+          </div>
+          <div className="flex gap-2 flex-wrap">
+            {dataCategori.map((categori) => (
+              <CategoriCard
+                key={categori.id}
+                id={categori.id}
+                name={categori.name}
               />
-            </span>
-          </a>
-        </footer>
-      </div>
+            ))}
+          </div>
+        </section>
+        <section className=" w-full px-8 my-10">
+          <div className="flex gap-5 items-center justify-center flex-col-reverse md:flex-row">
+            <div>
+              <Image src="/gif/screen-phone1.gif" width={300} height={550} />
+            </div>
+            <div className="flex gap-4 flex-col ">
+              <Heading>Aplikasi No. 1 Mahasiswa & Pelajar</Heading>
+              <Text>
+                Kunjungi store aplikasi kesayangan kalian, download untuk
+                mendapatkan fitur lebih banyak
+              </Text>
+              <div className="flex gap-5">
+                <a
+                  href="https://apps.apple.com/us/app/sejutacita/id1534169929"
+                  target="_blank"
+                  rel="noreferrer"
+                >
+                  <Image
+                    src="/images/appsstore.svg"
+                    width={180}
+                    height={53}
+                    className="cursor-pointer transform transition duration-500 hover:scale-95 m-20 rounded-lg"
+                  />
+                </a>
+                <a
+                  href="https://play.google.com/store/apps/details?id=id.sejutacita"
+                  target="_blank"
+                  className="cursor-pointer"
+                  rel="noreferrer"
+                >
+                  <Image
+                    src="/images/playstore.svg"
+                    width={180}
+                    height={53}
+                    className="cursor-pointer transform transition duration-500 hover:scale-95 m-20 rounded-lg"
+                  />
+                </a>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <Footer />
+      </main>
     </>
   );
+}
+
+export async function getServerSideProps() {
+  // Fetch data from external API
+  const categories = await fetch(
+    `https://asia-southeast2-sejutacita-app.cloudfunctions.net/fee-assessment-categories`
+  );
+  const dataCategori = await categories.json();
+  // Pass data to the page via props
+  return { props: { dataCategori } };
 }
