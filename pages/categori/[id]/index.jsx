@@ -14,12 +14,13 @@ import {
   SimpleGrid,
   Text,
 } from '@chakra-ui/react';
+import Link from 'next/link';
 import { useRouter } from 'next/router';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { Footer, HeadTD, Navbar } from '../../../components';
 
-const CategoriID = ({ dataCategories, lenghtAllData, Cid }) => {
-  // const [page, setPage] = useState(0);
+const CategoriID = ({ dataCategories, lenghtAllData, Cid, Cpage, Csize }) => {
+  const [page, setPage] = useState(Cpage);
   const [size, setSize] = useState(10);
   const [booku, setBooku] = useState(dataCategories);
   const router = useRouter();
@@ -66,7 +67,7 @@ const CategoriID = ({ dataCategories, lenghtAllData, Cid }) => {
         newTitle={router.query.name}
         newDesc={`Kumpulan Booku Categori ${router.query.name}. Booku adalah 200+ ringkasan non-fiksi untuk perluas wawasanmu di mana pun, kapan pun. Ada versi audio & teks, dalam 2 bahasa!`}
       />
-      <section className="max-w-[1100px] flex justify-center items-center mx-auto flex-col px-8 gap-10 mt-10 text-center">
+      <section className="max-w-[1100px] flex justify-center items-center mx-auto flex-col px-8 gap-10 mt-4 md:mt-10 text-center">
         <div className="flex items-center justify-start gap-2 w-full h-full">
           <ArrowBackIcon
             w={10}
@@ -77,7 +78,7 @@ const CategoriID = ({ dataCategories, lenghtAllData, Cid }) => {
 
           <Heading
             as="h1"
-            size={['lg', null, '2xl']}
+            size={['md', null, '2xl']}
             className="text-start flex justify-start"
           >
             {router.query.name}
@@ -91,7 +92,15 @@ const CategoriID = ({ dataCategories, lenghtAllData, Cid }) => {
               h={[250, null, 400]}
               borderRadius="md"
               className=" flex flex-col gap-2 items-center hover:scale-105 hover:shadow-lg  transition cursor-pointer"
-              onClick={() => console.log(`/${Cid}`)}
+              onClick={() =>
+                // console.log(i )
+                router.push({
+                  pathname: `/categori/booku/${i.id}`,
+                  query: {
+                    categori: router.query.id,
+                  },
+                })
+              }
             >
               <Image src={i.cover_url} boxSize="75%" />
               <div className=" w-full text-start px-6">
@@ -113,10 +122,13 @@ const CategoriID = ({ dataCategories, lenghtAllData, Cid }) => {
               value={size}
               onChange={(e) => {
                 setSize(e);
-                router.push({
-                  pathname: `/categori/${Cid}&0&${e}`,
-                  query: { name: router.query.name },
-                });
+                router.push(
+                  {
+                    pathname: `/categori/${Cid}&0&${e}`,
+                    query: { name: router.query.name },
+                  },
+                  `/categori/${Cid}&0&${e}`
+                );
               }}
             >
               <NumberInputField />
@@ -138,9 +150,9 @@ export default CategoriID;
 
 export async function getServerSideProps(context) {
   const { id } = context.query;
-  const [Cid, page, size] = id.split('&');
+  const [Cid, Cpage, Csize] = id.split('&');
   const categories = await fetch(
-    `https://asia-southeast2-sejutacita-app.cloudfunctions.net/fee-assessment-books?categoryId=${Cid}&page=${page}&size=${size}`
+    `https://asia-southeast2-sejutacita-app.cloudfunctions.net/fee-assessment-books?categoryId=${Cid}&page=${Cpage}&size=${Csize}`
   );
   const categoriAll = await fetch(
     `https://asia-southeast2-sejutacita-app.cloudfunctions.net/fee-assessment-books?categoryId=${id}`
@@ -149,5 +161,5 @@ export async function getServerSideProps(context) {
   const AllData = await categoriAll.json();
   const lenghtAllData = AllData.length;
   // Pass data to the page via props
-  return { props: { dataCategories, lenghtAllData, Cid } };
+  return { props: { dataCategories, lenghtAllData, Cid, Cpage, Csize } };
 }
