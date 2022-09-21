@@ -8,62 +8,38 @@ import {
   Input,
   InputGroup,
   InputLeftElement,
-  NumberDecrementStepper,
-  NumberIncrementStepper,
-  NumberInput,
-  NumberInputField,
-  NumberInputStepper,
+  Select,
   SimpleGrid,
   Skeleton,
   Text,
+  useColorMode,
 } from '@chakra-ui/react';
 import { useRouter } from 'next/router';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Footer, HeadTD, Navbar } from '../../../components';
 
-const CategoriID = ({ dataCategories, Cid }) => {
-  // const [page, setPage] = useState(Cpage);
-  const [size, setSize] = useState(10);
+const CategoriID = ({ dataCategories, Cid, Csize, Cpage, lenghtAllData }) => {
+  const [Curpage, setCurPage] = useState(Cpage);
   const [booku, setBooku] = useState(dataCategories);
+  const [size, setSize] = useState(Csize);
   const [searchLoading, setsearchLoading] = useState(false);
   const [search, setsearch] = useState('');
+  const [totalPage, settotalPage] = useState(
+    lenghtAllData.slice(0, Math.ceil(lenghtAllData.length / size))
+  );
+
+  const { colorMode } = useColorMode();
+
+  useEffect(() => {
+    setBooku(dataCategories);
+    setSize(Csize);
+    settotalPage(
+      lenghtAllData.slice(0, Math.ceil(lenghtAllData.length / Csize))
+    );
+  }, [dataCategories, Csize]);
 
   const router = useRouter();
 
-  // const [isLoaded, setIsLoaded] = useState(false);
-
-  // const [id, setBook ] = router.query;
-  // const pagesizeOhnchange = async () => {
-  //   try {
-  //     const res = await fetch(
-  //       'https://asia-southeast2-sejutacita-app.cloudfunctions.net/fee-assessment-books?categoryId=1&page=0&size=10'
-  //     );
-  //     const newBooks = await res.status(200).json();
-  //     setBooku(newBooks);
-  //   } catch (error) {
-  //     console.log('masuk eror', error);
-  //   }
-  // };
-
-  // useEffect(() => {
-  //   pagesizeOhnchange();
-  // }, [page, size]);
-  // console.log(booku);
-
-  //   useEffect(async () => {
-  //     try {
-  //       const res = await fetch(
-  //         `https://asia-southeast2-sejutacita-app.cloudfunctions.net/fee-assessment-books?categoryId=${
-  //           router.query.id
-  //         }&page=${0}&size=${10}`
-  //       );
-  //       const newBooks = await res.json();
-  //       setBooku(newBooks);
-  //     } catch (err) {
-  //       console.log(err);
-  //     }
-  //     console.log(page);
-  //   }, [page, size]);
 
   const handleSearch = async (e) => {
     setsearch(e.target.value);
@@ -79,7 +55,20 @@ const CategoriID = ({ dataCategories, Cid }) => {
       await setBooku(newBooku);
     }
   };
-  // if (search == '') return setBooku(dataCategories);
+
+  const handleSize = (e) => {
+    router.replace({
+      pathname: `/categori/${Cid}&0&${e}`,
+      query: { name: router.query.name },
+    });
+  };
+
+  const handlePage = (e) => {
+    router.replace({
+      pathname: `/categori/${Cid}&${e}&${Csize}`,
+      query: { name: router.query.name },
+    });
+  };
 
   return (
     <div>
@@ -88,7 +77,7 @@ const CategoriID = ({ dataCategories, Cid }) => {
         newTitle={router.query.name}
         newDesc={`Kumpulan Booku Categori ${router.query.name}. Booku adalah 200+ ringkasan non-fiksi untuk perluas wawasanmu di mana pun, kapan pun. Ada versi audio & teks, dalam 2 bahasa!`}
       />
-      <section className="max-w-[1100px] flex justify-center items-center mx-auto flex-col px-8 gap-5 mt-4 md:mt-10 text-center">
+      <section className="max-w-[1100px]  flex justify-center items-center mx-auto flex-col px-8 gap-5 mt-4 md:mt-10 text-center">
         <div className="flex items-center justify-start gap-2 w-full h-full">
           <ArrowBackIcon
             w={10}
@@ -123,15 +112,15 @@ const CategoriID = ({ dataCategories, Cid }) => {
               }}
             />
           </InputGroup>
-          <Button onClick={() => console.log(search)}>Klik</Button>
+          {/* <Button onClick={() => console.log(search)}>Klik</Button> */}
         </div>
-        <SimpleGrid columns={[2, null, 3]} w="100%" gap={[2, null, 5]}>
+        <SimpleGrid columns={[2, null, 3]} w="100%" gap={[4, null, 5]}>
           {booku.map((i) => (
             <Skeleton key={i.id} isLoaded={!searchLoading}>
               <GridItem
                 key={i.id}
                 w="100%"
-                h={[250, null, 400]}
+                h={[220, null, 400]}
                 borderRadius="md"
                 className=" flex flex-col gap-2 items-center hover:scale-105 hover:shadow-lg  transition cursor-pointer"
                 onClick={() =>
@@ -145,43 +134,65 @@ const CategoriID = ({ dataCategories, Cid }) => {
                 }
               >
                 <Image src={i.cover_url} boxSize="75%" />
-                <div className=" w-full text-start px-6">
-                  <Heading as="h3" size={['sm', null, 'md']} className="">
+                <div className=" w-full text-start px-2">
+                  <Heading
+                    as="h3"
+                    size={['xs', null, 'md']}
+                    noOfLines={[2, null, 2]}
+                    className=""
+                  >
                     {i.title}
                   </Heading>
-                  <Text noOfLines={[1, null, 2]}>{i.description}</Text>
+                  <Text className="text-xs" noOfLines={[1, null, 2]}>
+                    {i.description}
+                  </Text>
                 </div>
               </GridItem>
             </Skeleton>
           ))}
         </SimpleGrid>
-        <div className="flex w-full">
-          <div className="flex justify-center gap-2 items-center w-40">
-            <Text>Book&apos;s</Text>
-            <NumberInput
-              placeholder="10"
-              min={10}
-              max={20}
-              value={size}
-              onChange={(e) => {
-                setSize(e);
-                router.push(
-                  {
-                    pathname: `/categori/${Cid}&0&${e}`,
-                    query: { name: router.query.name },
-                  },
-                  `/categori/${Cid}&0&${e}`
-                );
-              }}
-            >
-              <NumberInputField />
-              <NumberInputStepper>
-                <NumberIncrementStepper />
-                <NumberDecrementStepper />
-              </NumberInputStepper>
-            </NumberInput>
+        <div className="flex flex-col w-full md:flex-row gap-2">
+          <div className="flex w-full justify-center gap-2 items-center">
+            <div className="flex-none">
+              <Select
+                defaultValue={size}
+                onChange={(e) => {
+                  handleSize(e.target.value);
+                }}
+              >
+                <option>10</option>
+                <option>15</option>
+                <option>20</option>
+                <option>25</option>
+              </Select>
+            </div>
+            <Text className="w-full text-start">Book&apos;s /page</Text>
           </div>
-          <div className="flex justify-center gap-2 items-center w-40" />
+          <div className="flex justify-center gap-2 items-center w-4/5 md:w-1/2">
+            <nav
+              className="isolate inline-flex overflow-auto -space-x-px rounded-md shadow-sm"
+              aria-label="Pagination"
+            >
+              {totalPage.map((page, index) => (
+                <Button
+                  key={page}
+                  variant="ghost"
+                  colorScheme={`${
+                    Curpage === `${index}`
+                      ? `${colorMode === 'dark' ? 'teal' : 'blue'}`
+                      : 'gray'
+                  }`}
+                  value={index}
+                  onClick={(e) => {
+                    setCurPage(e.target.value);
+                    handlePage(e.target.value);
+                  }}
+                >
+                  {index}
+                </Button>
+              ))}
+            </nav>
+          </div>
         </div>
         <Footer />
       </section>
@@ -202,7 +213,7 @@ export async function getServerSideProps(context) {
   );
   const dataCategories = await categories.json();
   const AllData = await categoriAll.json();
-  const lenghtAllData = AllData.length;
+  const lenghtAllData = AllData.map((data, index) => index);
   // Pass data to the page via props
   return { props: { dataCategories, lenghtAllData, Cid, Cpage, Csize } };
 }

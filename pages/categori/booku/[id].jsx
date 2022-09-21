@@ -20,7 +20,7 @@ const BookuID = ({ detailBuku }) => {
       <HeadTD />
       <Navbar />
       <HeadTD newTitle={datadetail.title} newDesc={datadetail.description} />
-      <section className="max-w-[1100px] flex justify-center items-center mx-auto flex-col px-8 gap-10 mt-4 md:mt-10 text-center">
+      <section className="max-w-[1100px] flex justify-center items-center mx-auto flex-col px-8 gap-5 mt-4 md:mt-10 text-center">
         <div className="flex items-center justify-start gap-2 w-full ">
           <ArrowBackIcon
             w={10}
@@ -29,7 +29,7 @@ const BookuID = ({ detailBuku }) => {
             className="hover:scale-110 transition mt-2 cursor-pointer"
           />
 
-          <Text className="text-start flex justify-start font-bold text-2xl md:text-3xl ">
+          <Text className="text-start flex justify-start font-bold text-3xl md:text-4xl ">
             Back
           </Text>
         </div>
@@ -41,7 +41,7 @@ const BookuID = ({ detailBuku }) => {
             alt={datadetail.title}
           />
 
-          <div className="w-3/4 h-full flex flex-col justify-start text-start gap-3 overflow-auto">
+          <div className="w-full h-full flex flex-col justify-start text-start gap-3 overflow-auto">
             <div>
               <Heading as="h1">{datadetail.title}</Heading>
               <Text className="font-semibold">
@@ -74,7 +74,7 @@ const BookuID = ({ detailBuku }) => {
                         {`${index + 1}. ${section.title}`}
                       </Box>
                     </AccordionButton>
-                    <AccordionPanel>{section.content}</AccordionPanel>
+                    <AccordionPanel pb={4}>{section.content}</AccordionPanel>
                   </AccordionItem>
                 ))}
               </Accordion>
@@ -103,48 +103,3 @@ export async function getServerSideProps(context) {
   );
   return { props: { detailBuku } };
 }
-
-// function BookuID() {
-//   const [data, setData] = useState(null);
-//   const [isLoading, setLoading] = useState(false);
-//   const headers = new Headers();
-
-//   headers.append('Content-Type', 'application/json');
-//   headers.append('Accept', 'application/json');
-
-//   headers.append('Access-Control-Allow-Origin', 'http://localhost:3000');
-//   headers.append('Access-Control-Allow-Credentials', 'true');
-
-//   headers.append('GET', 'POST', 'OPTIONS');
-
-//   useEffect(() => {
-//     setLoading(true);
-//     fetch(
-//       'https://asia-southeast2-sejutacita-app.cloudfunctions.net/fee-assessment-books?categoryId=1&page=0&size=10',
-//       {
-//         // mode: 'no-cors',
-//         credentials: 'include',
-//         method: 'POST',
-//         headers,
-//       }
-//     )
-//       .then((res) => res.json())
-//       .then((Data) => {
-//         setData(Data);
-//         console.log(Data);
-//         setLoading(false);
-//       });
-//   }, []);
-
-//   // if (isLoading) return <p>Loading...</p>;
-//   if (!data) return <p>No BookuID data</p>;
-
-//   return (
-//     <div>
-//       <h1>{data.name}</h1>
-//       <p>{data.bio}</p>
-//     </div>
-//   );
-// }
-
-// export default BookuID;
