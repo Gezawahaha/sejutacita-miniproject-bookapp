@@ -55,13 +55,11 @@ const AppReducer = (state, action) => {
 
   switch (type) {
     case 'ADD_TO_FAVORITE':
-      console.log('ADD_TO_FAVORITE', payload);
       return {
         ...state,
         favArray: payload.favArray,
       };
     case 'REMOVE_FROM_FAVORITE':
-      console.log('REMOVE_FROM_FAVORITE', payload);
       return {
         ...state,
         favArray: payload.favArray,
