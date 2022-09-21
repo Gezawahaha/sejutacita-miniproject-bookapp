@@ -9,15 +9,12 @@ import {
   Image,
   Text,
 } from '@chakra-ui/react';
-import Link from 'next/link';
 import { useRouter } from 'next/router';
-import { startTransition, useEffect, useState } from 'react';
-import { CategoriCard, Footer, HeadTD, Navbar } from '../../../components';
+import { Footer, HeadTD, Navbar } from '../../../components';
 
 const BookuID = ({ detailBuku }) => {
   const router = useRouter();
   const datadetail = detailBuku[0];
-  console.log(datadetail);
   return (
     <div className="h-screen">
       <HeadTD />

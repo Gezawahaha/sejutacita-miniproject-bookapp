@@ -1,17 +1,22 @@
-import { ArrowBackIcon } from '@chakra-ui/icons';
+import { ArrowBackIcon, SearchIcon } from '@chakra-ui/icons';
 import {
   Box,
   Button,
   Grid,
   GridItem,
   Heading,
+  IconButton,
   Image,
+  Input,
+  InputGroup,
+  InputLeftElement,
   NumberDecrementStepper,
   NumberIncrementStepper,
   NumberInput,
   NumberInputField,
   NumberInputStepper,
   SimpleGrid,
+  Skeleton,
   Text,
 } from '@chakra-ui/react';
 import Link from 'next/link';
@@ -23,6 +28,9 @@ const CategoriID = ({ dataCategories, lenghtAllData, Cid, Cpage, Csize }) => {
   const [page, setPage] = useState(Cpage);
   const [size, setSize] = useState(10);
   const [booku, setBooku] = useState(dataCategories);
+  const [searchLoading, setsearchLoading] = useState(false);
+  const [search, setsearch] = useState('');
+
   const router = useRouter();
 
   // const [isLoaded, setIsLoaded] = useState(false);
@@ -60,6 +68,22 @@ const CategoriID = ({ dataCategories, lenghtAllData, Cid, Cpage, Csize }) => {
   //     console.log(page);
   //   }, [page, size]);
 
+  const handleSearch = async (e) => {
+    setsearch(e.target.value);
+    setTimeout(() => {
+      setsearchLoading(false);
+    }, 1000);
+    const newBooku = booku.filter((books) =>
+      books.title.toLowerCase().includes(search.toLowerCase())
+    );
+    if  (e.target.value === '') {
+      await setBooku(dataCategories);
+    } else {
+      await setBooku(newBooku);
+    }
+  };
+  // if (search == '') return setBooku(dataCategories);
+
   return (
     <div>
       <Navbar />
@@ -67,7 +91,7 @@ const CategoriID = ({ dataCategories, lenghtAllData, Cid, Cpage, Csize }) => {
         newTitle={router.query.name}
         newDesc={`Kumpulan Booku Categori ${router.query.name}. Booku adalah 200+ ringkasan non-fiksi untuk perluas wawasanmu di mana pun, kapan pun. Ada versi audio & teks, dalam 2 bahasa!`}
       />
-      <section className="max-w-[1100px] flex justify-center items-center mx-auto flex-col px-8 gap-10 mt-4 md:mt-10 text-center">
+      <section className="max-w-[1100px] flex justify-center items-center mx-auto flex-col px-8 gap-5 mt-4 md:mt-10 text-center">
         <div className="flex items-center justify-start gap-2 w-full h-full">
           <ArrowBackIcon
             w={10}
@@ -84,32 +108,54 @@ const CategoriID = ({ dataCategories, lenghtAllData, Cid, Cpage, Csize }) => {
             {router.query.name}
           </Heading>
         </div>
+        <div className="w-full flex gap-1">
+          <InputGroup>
+            <InputLeftElement pointerEvents="none">
+              <IconButton
+                variant="ghost"
+                isLoading={searchLoading}
+                icon={<SearchIcon />}
+              />
+            </InputLeftElement>
+            <Input
+              type="tel"
+              placeholder="Cari Buku di page ini"
+              onChange={(e) => {
+                setsearchLoading(true);
+                handleSearch(e);
+              }}
+            />
+          </InputGroup>
+          <Button onClick={() => console.log(search)}>Klik</Button>
+        </div>
         <SimpleGrid columns={[2, null, 3]} w="100%" gap={[2, null, 5]}>
           {booku.map((i) => (
-            <GridItem
-              key={i.id}
-              w="100%"
-              h={[250, null, 400]}
-              borderRadius="md"
-              className=" flex flex-col gap-2 items-center hover:scale-105 hover:shadow-lg  transition cursor-pointer"
-              onClick={() =>
-                // console.log(i )
-                router.push({
-                  pathname: `/categori/booku/${i.id}`,
-                  query: {
-                    categori: router.query.id,
-                  },
-                })
-              }
-            >
-              <Image src={i.cover_url} boxSize="75%" />
-              <div className=" w-full text-start px-6">
-                <Heading as="h3" size={['sm', null, 'md']} className="">
-                  {i.title}
-                </Heading>
-                <Text noOfLines={[1, null, 2]}>{i.description}</Text>
-              </div>
-            </GridItem>
+            <Skeleton key={i.id} isLoaded={!searchLoading}>
+              <GridItem
+                key={i.id}
+                w="100%"
+                h={[250, null, 400]}
+                borderRadius="md"
+                className=" flex flex-col gap-2 items-center hover:scale-105 hover:shadow-lg  transition cursor-pointer"
+                onClick={() =>
+                  // console.log(i )
+                  router.push({
+                    pathname: `/categori/booku/${i.id}`,
+                    query: {
+                      categori: router.query.id,
+                    },
+                  })
+                }
+              >
+                <Image src={i.cover_url} boxSize="75%" />
+                <div className=" w-full text-start px-6">
+                  <Heading as="h3" size={['sm', null, 'md']} className="">
+                    {i.title}
+                  </Heading>
+                  <Text noOfLines={[1, null, 2]}>{i.description}</Text>
+                </div>
+              </GridItem>
+            </Skeleton>
           ))}
         </SimpleGrid>
         <div className="flex w-full">
