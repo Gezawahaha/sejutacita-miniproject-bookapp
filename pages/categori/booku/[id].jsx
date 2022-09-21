@@ -8,13 +8,47 @@ import {
   Heading,
   Image,
   Text,
+  useColorMode,
 } from '@chakra-ui/react';
 import { useRouter } from 'next/router';
+import { useEffect, useState } from 'react';
 import { Footer, HeadTD, Navbar } from '../../../components';
+import useFav from '../../../contexts/AppContext';
 
 const BookuID = ({ detailBuku }) => {
   const router = useRouter();
   const datadetail = detailBuku[0];
+  const { colorMode } = useColorMode();
+  const [bookmarked, setBookmark] = useState(false);
+
+  const { favArray, addToFavorite, removeFavorite } = useFav();
+
+  useEffect(() => {
+    const isBookmarked = favArray.find((fav) => fav.id === datadetail.id);
+
+    if (isBookmarked) {
+      setBookmark(true);
+    } else {
+      setBookmark(false);
+    }
+  }, [favArray, datadetail.id]);
+
+  const handleFav = () => {
+    const singleJob = {
+      id: datadetail.id,
+      title: datadetail.title,
+      description: datadetail.description,
+      cover_url: datadetail.cover_url,
+      sections: datadetail.sections,
+    };
+
+    if (bookmarked) {
+      removeFavorite(singleJob);
+    } else {
+      addToFavorite(singleJob);
+    }
+  };
+
   return (
     <div className="h-screen">
       <HeadTD />
@@ -41,9 +75,20 @@ const BookuID = ({ detailBuku }) => {
             alt={datadetail.title}
           />
 
-          <div className="w-full h-full flex flex-col justify-start text-start gap-3 overflow-auto">
+          <div className="w-full h-full flex flex-col justify-start text-start gap-6 overflow-auto">
             <div>
-              <Heading as="h1">{datadetail.title}</Heading>
+              <div className="flex items-center gap-4">
+                <Image
+                  src={`/icons/bookmark${bookmarked ? 'ed' : ''}-${
+                    colorMode === 'dark' ? 'dark' : 'light'
+                  }.svg`}
+                  boxSize={8}
+                  className="hover:scale-110 cursor-pointer transition"
+                  onClick={handleFav}
+                />
+                <Heading as="h1">{datadetail.title}</Heading>
+              </div>
+
               <Text className="font-semibold">
                 {datadetail.authors.join(', ')}
               </Text>

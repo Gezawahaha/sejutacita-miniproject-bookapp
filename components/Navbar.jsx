@@ -5,10 +5,9 @@ import {
   useColorModeValue,
   Stack,
   useColorMode,
-  IconButton,
+  Image,
 } from '@chakra-ui/react';
 import { MoonIcon, SunIcon } from '@chakra-ui/icons';
-import Image from 'next/image';
 import { useRouter } from 'next/router';
 
 // const NavLink = (children) => (
@@ -48,7 +47,7 @@ export default function Navbar() {
           />
 
           <Flex alignItems="center">
-            <Stack direction="row" spacing={4}>
+            <Stack direction="row" spacing={1}>
               <Button
                 colorScheme="gray"
                 variant="ghost"
@@ -57,7 +56,9 @@ export default function Navbar() {
               >
                 Baca Booku
               </Button>
-              <IconButton icon="/icons/bookmark-light.svg" />
+              <Button onClick={() => router.push('/bookmark')}>
+                <Image src="/icons/bookmarked-light.svg" boxSize={5} />
+              </Button>
               <Button onClick={toggleColorMode}>
                 {colorMode === 'light' ? (
                   <MoonIcon />

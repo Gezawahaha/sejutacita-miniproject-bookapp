@@ -14,7 +14,7 @@ const Footer = () => {
         <p>WebApp Made by </p>
         <span>
           <Image
-            src={`/logo-gm${colorMode === 'dark' ? '' : '-black'}.svg`}
+            src={`/Logo-gm${colorMode === 'dark' ? '' : '-black'}.svg`}
             width={120}
             height={53}
           />

@@ -1,14 +1,14 @@
 import '../styles/globals.css';
 import { ChakraProvider } from '@chakra-ui/react';
-// import { BookProvider } from '../contexts/BookContext';
+import { AppProvider } from '../contexts/AppContext';
 
 function MyApp({ Component, pageProps }) {
   return (
-    // <BookProvider>
-    <ChakraProvider>
-      <Component {...pageProps} />
-    </ChakraProvider>
-    // </BookProvider>
+    <AppProvider>
+      <ChakraProvider>
+        <Component {...pageProps} />
+      </ChakraProvider>
+    </AppProvider>
   );
 }
 
