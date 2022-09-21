@@ -1,8 +1,6 @@
 import { ArrowBackIcon, SearchIcon } from '@chakra-ui/icons';
 import {
-  Box,
   Button,
-  Grid,
   GridItem,
   Heading,
   IconButton,
@@ -19,13 +17,12 @@ import {
   Skeleton,
   Text,
 } from '@chakra-ui/react';
-import Link from 'next/link';
 import { useRouter } from 'next/router';
 import { useState } from 'react';
 import { Footer, HeadTD, Navbar } from '../../../components';
 
-const CategoriID = ({ dataCategories, lenghtAllData, Cid, Cpage, Csize }) => {
-  const [page, setPage] = useState(Cpage);
+const CategoriID = ({ dataCategories, Cid }) => {
+  // const [page, setPage] = useState(Cpage);
   const [size, setSize] = useState(10);
   const [booku, setBooku] = useState(dataCategories);
   const [searchLoading, setsearchLoading] = useState(false);
@@ -76,7 +73,7 @@ const CategoriID = ({ dataCategories, lenghtAllData, Cid, Cpage, Csize }) => {
     const newBooku = booku.filter((books) =>
       books.title.toLowerCase().includes(search.toLowerCase())
     );
-    if  (e.target.value === '') {
+    if (e.target.value === '') {
       await setBooku(dataCategories);
     } else {
       await setBooku(newBooku);
