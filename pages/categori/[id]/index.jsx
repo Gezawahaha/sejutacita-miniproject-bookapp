@@ -40,7 +40,6 @@ const CategoriID = ({ dataCategories, Cid, Csize, Cpage, lenghtAllData }) => {
 
   const router = useRouter();
 
-
   const handleSearch = async (e) => {
     setsearch(e.target.value);
     setTimeout(() => {
