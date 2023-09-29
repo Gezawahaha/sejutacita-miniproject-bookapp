@@ -1,10 +1,12 @@
 import { Heading, Text } from '@chakra-ui/layout';
 import Image from 'next/image';
+import Script from 'next/script';
 import { CategoriCard, Footer, HeadTD, Hero, Navbar } from '../components';
 
 export default function Home({ dataCategori }) {
   return (
     <>
+      <Script src="https://tracking-cdn.figpii.com/0d93e1300cca600aab9bb3d31c31d157.js" />
       <HeadTD />
       <Navbar />
       <main className="max-w-[1100px] flex justify-center items-center mx-auto flex-col">
