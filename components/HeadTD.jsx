@@ -17,8 +17,15 @@ const HeadTD = ({ newTitle, newDesc }) => (
       }
     />
     <link rel="icon" href="/favicon.webp" />
-    <script>!function(){var n=document.createElement('script');n.crossOrigin='anonymous',n.async='async',n.src='https://tracking-cdn.figpii.com/df80bb2c884020af582babcfbf7aeaea.js',document.head.append(n),window._fpEvent=window._fpEvent||[]}();</script>
-    
+    <script
+      src="https://tracking-cdn.figpii.com/0d93e1300cca600aab9bb3d31c31d157.js"
+      async
+    />
+    <script
+      src="https://tracking-cdn.figpii.com/0d93e1300cca600aab9bb3d31c31d157.js"
+      defer
+    />
+    {/* <script type="text/javascript" src="/abscript.js" /> */}
   </Head>
 );
 
