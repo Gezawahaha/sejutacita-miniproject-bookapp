@@ -17,6 +17,9 @@ const HeadTD = ({ newTitle, newDesc }) => (
       }
     />
     <link rel="icon" href="/favicon.webp" />
+    <!-- FigPii Asynchronous Tracking Code -->
+    <script>!function(){var n=document.createElement('script');n.crossOrigin='anonymous',n.async='async',n.src='https://tracking-cdn.figpii.com/df80bb2c884020af582babcfbf7aeaea.js',document.head.append(n),window._fpEvent=window._fpEvent||[]}();</script>
+    <!-- End FigPii Asynchronous Tracking Code -->
   </Head>
 );
 
