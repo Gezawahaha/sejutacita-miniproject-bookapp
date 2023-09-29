@@ -17,7 +17,6 @@ const HeadTD = ({ newTitle, newDesc }) => (
       }
     />
     <link rel="icon" href="/favicon.webp" />
-
   </Head>
 );
 
