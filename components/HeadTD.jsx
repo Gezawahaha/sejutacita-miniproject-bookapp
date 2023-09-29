@@ -17,6 +17,7 @@ const HeadTD = ({ newTitle, newDesc }) => (
       }
     />
     <link rel="icon" href="/favicon.webp" />
+<<<<<<< HEAD
     <script
       src="https://tracking-cdn.figpii.com/0d93e1300cca600aab9bb3d31c31d157.js"
       async
@@ -26,6 +27,8 @@ const HeadTD = ({ newTitle, newDesc }) => (
       defer
     />
     {/* <script type="text/javascript" src="/abscript.js" /> */}
+=======
+>>>>>>> 713281998d0cbce119fc2d5289b7634fa76590fb
   </Head>
 );
 
