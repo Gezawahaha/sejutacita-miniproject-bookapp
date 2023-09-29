@@ -34,7 +34,9 @@
         "react/function-component-definition": "off",
         "no-unused-expressions": "off",
         "no-underscore-dangle": "off",
-        "no-sequences": "off"
+        "no-sequences": "off",
+        "no-named-as-default-member": "off",
+        "no-named-as-default": "off"
          
       }
 }
