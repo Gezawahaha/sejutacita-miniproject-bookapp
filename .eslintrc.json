@@ -31,7 +31,10 @@
         "react/prop-types": "off",
         "simple-import-sort/sort": "off",
         "import/no-extraneous-dependencies": "off",
-        "react/function-component-definition": "off"
+        "react/function-component-definition": "off",
+        "no-unused-expressions": "off",
+        "no-underscore-dangle": "off",
+        "no-sequences": "off"
          
       }
 }
