@@ -3,7 +3,6 @@ import Head from 'next/head';
 
 const HeadTD = ({ newTitle, newDesc }) => (
   <Head>
-    
     <title>
       {newTitle
         ? `${newTitle} | Sejuta Cita Book's App`
