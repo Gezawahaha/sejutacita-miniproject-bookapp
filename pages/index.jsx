@@ -6,7 +6,27 @@ import { CategoriCard, Footer, HeadTD, Hero, Navbar } from '../components';
 export default function Home({ dataCategori }) {
   return (
     <>
-      <Script src="https://tracking-cdn.figpii.com/0d93e1300cca600aab9bb3d31c31d157.js" />
+      <Script >
+        {`(function (m, a, z, e) {
+  var s, t;
+  try {
+    t = m.sessionStorage.getItem('maze-us');
+  } catch (err) {}
+
+  if (!t) {
+    t = new Date().getTime();
+    try {
+      m.sessionStorage.setItem('maze-us', t);
+    } catch (err) {}
+  }
+
+  s = a.createElement('script');
+  s.src = z + '?t=' + t + '&apiKey=' + e;
+  s.async = true;
+  a.getElementsByTagName('head')[0].appendChild(s);
+  m.mazeUniversalSnippetApiKey = e;
+})(window, document, 'https://snippet.maze.co/maze-universal-loader.js', 'd576d76c-a884-4cee-81fd-2bfd6aa718e7');`}
+      </Script>
       <HeadTD />
       <Navbar />
       <main className="max-w-[1100px] flex justify-center items-center mx-auto flex-col">
