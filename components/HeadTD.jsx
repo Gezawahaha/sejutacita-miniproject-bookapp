@@ -1,5 +1,6 @@
 import React from 'react';
 import Head from 'next/head';
+
 const HeadTD = ({ newTitle, newDesc }) => (
   <Head>
     <title>
@@ -40,7 +41,6 @@ const HeadTD = ({ newTitle, newDesc }) => (
           : `This Official Sejuta Cita Book's App. You can read anything book's just visit this website`
       }
     />
-    
   </Head>
 );
 
