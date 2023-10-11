@@ -1,6 +1,5 @@
 import { Heading, Text } from '@chakra-ui/layout';
 import Image from 'next/image';
-import Script from 'next/script';
 import { CategoriCard, Footer, HeadTD, Hero, Navbar } from '../components';
 
 export default function Home({ dataCategori }) {
