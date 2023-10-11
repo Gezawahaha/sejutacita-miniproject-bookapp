@@ -6,8 +6,9 @@ import { CategoriCard, Footer, HeadTD, Hero, Navbar } from '../components';
 export default function Home({ dataCategori }) {
   return (
     <>
-      <Script >
-        {`(function (m, a, z, e) {
+      <Script
+        dangerouslySetInnerHTML={{
+          __html: `(function (m, a, z, e) {
   var s, t;
   try {
     t = m.sessionStorage.getItem('maze-us');
@@ -25,8 +26,9 @@ export default function Home({ dataCategori }) {
   s.async = true;
   a.getElementsByTagName('head')[0].appendChild(s);
   m.mazeUniversalSnippetApiKey = e;
-})(window, document, 'https://snippet.maze.co/maze-universal-loader.js', 'd576d76c-a884-4cee-81fd-2bfd6aa718e7');`}
-      </Script>
+})(window, document, 'https://snippet.maze.co/maze-universal-loader.js', 'd576d76c-a884-4cee-81fd-2bfd6aa718e7');`,
+        }}
+      />
       <HeadTD />
       <Navbar />
       <main className="max-w-[1100px] flex justify-center items-center mx-auto flex-col">
